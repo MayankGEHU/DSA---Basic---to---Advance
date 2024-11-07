@@ -1,26 +1,23 @@
-// using DFS
-bool isCycleUtil(vector<int> g[], int start, vector<bool>& visited, int parent) {
-    visited[start] = true;
+  bool isCycleDFS(vector<vector<int>>& adj, int node, vector<bool>& visited, int parent) {
+    visited[node] = true;
     
-    vector<int>::iterator it;
-    for(it = g[start].begin(); it != g[start].end(); it++) {
-        if(*it == parent)
-            continue;
-        if(visited[*it] == true)
-            return true;
-        if(isCycleUtil(g, *it, visited, start))
-            return true;
-            
-    }
-    return false;
-}
+    for (int &v : adj[node]) {
+        if (v == parent) continue; 
 
-bool isCyclic(vector<int> g[], int V) {
-    vector<bool> visited(V, false);
-    
-    for(int i = 0; i<V; i++) {
-        if(visited[i] == false && isCycleUtil(g, i, visited, -1))
+        if (isCycleDFS(adj, v, visited, node) == true)
             return true;
     }
     return false;
 }
+    // Function to detect cycle in an undirected graph.
+    bool isCycle(vector<vector<int>>& adj) {
+        // Code here
+        vector<bool> visited(V, false);
+        
+        for(int i = 0; i < V; i++) {
+            if(!visited[i] && isCycleDFS(adj, i , visited, -1)) {
+                return true;
+            }
+        }
+        return false;
+    }
