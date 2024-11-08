@@ -18,7 +18,6 @@ bool isCycleDFS(int u, vector<vector<int>>& adj, vector<bool>& visited, vector<b
     return false;
 }
 
-
 bool isCyclic(int V, vector<vector<int>> adj) {
     vector<bool> visited(V, false);
     vector<bool> inRecursion(V, false);
