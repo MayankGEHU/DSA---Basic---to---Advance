@@ -1,3 +1,4 @@
+//-- Using DSU
 class Solution {
 public:
     
@@ -64,6 +65,48 @@ public:
 
             result += (size) * (remainingNode - size);
             remainingNode -= size;
+        }
+        return result;
+    }
+};
+
+
+// using DFS
+class Solution {
+public:
+    void dfs(int u, vector<bool>& visited, unordered_map<int, vector<int>>&mp, long long&sizeofcomponent) {
+        visited[u] = true;
+        sizeofcomponent++;
+
+        for(int &v: mp[u]) {
+            if(!visited[v]) {
+                dfs(v, visited, mp, sizeofcomponent);
+            }
+        }
+    }
+
+    long long countPairs(int n, vector<vector<int>>& edges) {
+        unordered_map<int, vector<int>>mp;
+        for(auto& vec: edges) {
+            int u =  vec[0];
+            int v = vec[1];
+
+            mp[u].push_back(v);
+            mp[v].push_back(u);
+        }
+
+        long long remain = n;
+        long long result = 0;
+
+        vector<bool> visited(n , false);
+        for(int i = 0; i < n; i++) {
+            long long sizeofcomponent = 0;
+
+            if(!visited[i]) {
+                dfs(i, visited, mp, sizeofcomponent);
+                result += (sizeofcomponent) * (remain - sizeofcomponent);
+                remain -= sizeofcomponent; 
+            }
         }
         return result;
     }
