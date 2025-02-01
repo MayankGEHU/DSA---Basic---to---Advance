@@ -13,9 +13,9 @@ class Solution {
     vector<int> rank;
     
     int find (int x) {
-        if (x == parent[x]) 
+        if (x == parent[x]) {
             return x;
-    
+        }
         return parent[x] = find(parent[x]);
     }
     
@@ -23,8 +23,9 @@ class Solution {
         int x_parent = find(x);
         int y_parent = find(y);
     
-        if (x_parent == y_parent) 
+        if (x_parent == y_parent){
             return;
+        }
     
         if(rank[x_parent] > rank[y_parent]) {
             parent[y_parent] = x_parent;
@@ -48,16 +49,14 @@ class Solution {
             int parent_u = find(u);
             int parent_v = find(v);
             
+            //if both are not connected then connect it
             if(parent_u != parent_v) {
                 Union(u, v);
                 sum += wt;
             }
         }
-
 	//if(edgesConnexted != V-1) 
 	    //"It's not a MST" - REMEMBER THIS ALWAYS if anyone asks you how to check if we formed an MST or not
-
-	    
         return sum;
     }
     
@@ -67,8 +66,9 @@ class Solution {
         parent.resize(V);
 	    rank.resize(V, 0);
         	    
-	    for(int i = 0; i<V; i++)
-	        parent[i] = i;
+	    for(int i = 0; i<V; i++) {
+            parent[i] = i;
+        }
 
         vector<vector<int>> vec;
         
@@ -80,10 +80,8 @@ class Solution {
                 int v = temp[0];
                 int d = temp[1];
 
-                vec.push_back({u, v, d});
-                
+                vec.push_back({u, v, d});   
             }
-            
         }
         
         
